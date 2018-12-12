@@ -10,13 +10,21 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
       console.log('user connected');
+      
+      let name = '';
+
+      socket.on('connection info', (connectedName) => {
+            name = connectedName;
+            io.sockets.emit('join', name + ' connected.');
+      });
 
       socket.on('disconnect', () => {
             console.log('user disconnected');
+            io.sockets.emit('disconnect', name + ' disconnected.');
       });
 
       socket.on('message', (message) => {
-            console.log(`Received a message: ${message}`);
+            console.log(`Received a message: ${message.message} from ${message.name}`);
             io.sockets.emit('message', message);
       });
 });

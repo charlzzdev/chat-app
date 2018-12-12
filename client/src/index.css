@@ -6,12 +6,42 @@
 
 .chatbox{
       height: 80vh;
-      background: #eee;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
 }
 
+.chatbox:first-child{
+      margin-top: auto !important;
+}
+
 .chatbox li{
-      padding: 10px 20px;
+      word-wrap: break-word;
+}
+
+.chatbox li:last-child{
+      opacity: 0;
+      animation: fade-in 500ms linear forwards;
+}
+
+@keyframes fade-in{
+      100% {
+            opacity: 1;
+      }
+}
+
+.chatbox li:nth-child(odd){
+      background: rgb(245, 245, 245);
+}
+
+.App{
+      height: 70vh;
+}
+
+.App form{
+      margin: 0 auto;
+}
+
+.App .btn{
+      margin: 10px 10px;
 }
