@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import Chat from './Chat';
 import {Redirect} from 'react-router-dom';
 
 class PublicChat extends Component {
@@ -57,7 +58,7 @@ class PublicChat extends Component {
 
             let input = e.target.childNodes[0];
             if(input.value.trim() !== '' && this.name === this.props.location.state.name){
-                  this.chat.emit('message', {name: this.props.location.state.name, message: input.value});
+                  this.chat.emit('message', {name: this.props.location.state.name, message: input.value, public: true});
             }
 
             input.value = '';
@@ -66,23 +67,7 @@ class PublicChat extends Component {
       render() {
             return(
                   typeof this.props.location.state !==  'undefined' ? (
-                        <div>
-                              <ul className="container chatbox collection">
-                                    {
-                                          this.state.messages.length > 0 ? this.state.messages.map(message => {
-                                                return(
-                                                      <li key={Math.random()} className="collection-item"><strong>{message.name}</strong>: {message.message}</li>
-                                                )
-                                          }) : null
-                                    }
-                              </ul>
-                              <form onSubmit={this.sendMessage} className="container valign-wrapper">
-                                    <input type="text" className="" placeholder="Message"/>
-                                    <button className="btn-floating">
-                                          <i className="material-icons">send</i>
-                                    </button>
-                              </form>
-                        </div>
+                        <Chat messages={this.state.messages} sendMessage={this.sendMessage} />
                   ) : <Redirect to="/" />
             )
       }

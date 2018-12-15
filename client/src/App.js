@@ -11,7 +11,7 @@ class App extends Component {
                         <div>
                               <Route exact path="/" component={Start}/>
                               <Route path="/public" component={PublicChat}/>
-                              <Route path="/private" component={PrivateChat}/>
+                              <Route path="/private/:id" component={PrivateChat}/>
                         </div>
                   </BrowserRouter>
             );

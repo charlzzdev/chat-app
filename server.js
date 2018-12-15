@@ -24,8 +24,13 @@ io.on('connection', (socket) => {
       });
 
       socket.on('message', (message) => {
-            console.log(`Received a message: ${message.message} from ${message.name}`);
-            io.sockets.emit('message', message);
+            if(message.public === false){
+                  console.log(`Received a private message: ${message.message} from ${message.name} to ${message.room}`);
+                  io.sockets.emit('private message', message);
+            } else {
+                  console.log(`Received a public message: ${message.message} from ${message.name}`);
+                  io.sockets.emit('message', message);
+            }
       });
 });
 
